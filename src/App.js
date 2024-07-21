@@ -125,11 +125,18 @@ function App() {
     console.log('update_leader_board data', data);
     // update leader board
     const {userId, totalScore} = data;
+    
     // filter out this userId
+    console.log('leaderBoardUsers', JSON.stringify(leaderBoardUsers));
+    console.log('leaderBoardUsers length', leaderBoardUsers.length);
+    console.log('userId', userId);
     const filteredBoard = leaderBoardUsers.filter(user => user.userId != userId);
-    console.log('filteredBoard', filteredBoard);
+    console.log('filteredBoard', JSON.stringify(filteredBoard));
+    console.log('filteredBoard length', filteredBoard.length);
     filteredBoard.push({quizId, userId, point: totalScore});
     filteredBoard.sort((a,b) => b.point - a.point);
+    console.log('filteredBoard2', JSON.stringify(filteredBoard));
+    console.log('filteredBoard2 length', filteredBoard.length);
     setLeaderBoardUsers([...filteredBoard]);
   };
 
@@ -143,7 +150,7 @@ function App() {
         socket.off('update_leader_board', onUpdateBoard);
       };
     }
-  }, [afterLogin]);
+  }, [afterLogin, leaderBoardUsers]);
 
   return (
     <>
